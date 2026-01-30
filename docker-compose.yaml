@@ -10,10 +10,10 @@ services:
         volumes:
             - mysql_data:/var/lib/mysql
         ports:
-            - "3306:3306"
-        #networks:
-        #    elbuensabor_network:
-        #        ipv4_address: 172.18.0.5
+            - "3307:3306"
+        networks:
+            elbuensabor_network:
+                ipv4_address: 172.18.0.202
 
     usuarios-db:
         image: postgres
@@ -24,10 +24,11 @@ services:
             - POSTGRES_PASSWORD=root
             - POSTGRES_DB=elbuensabor_db
         ports:
-            - "5432:5432"
-       # networks:
-       #     elbuensabor_network:
-       #         ipv4_address: 172.18.0.15
+            - "5532:5432"
+        #Anexo a reds - subreds
+        networks:
+            elbuensabor_network:
+                ipv4_address: 172.18.0.201
 
     discovery:
         build:
@@ -47,18 +48,18 @@ services:
             - "8080:8080"
         networks:
             elbuensabor_network:
-                ipv4_address: 172.18.0.201
+               ipv4_address: 172.18.0.201 
     
     reservas:
         build:
-            context: ./el-buen-sabor-ing-3
+            context: ./reservas
             dockerfile: dockerfile
         depends_on:
             - reservas-db
             - discovery
         networks:
-            elbuensabor_network:
-                ipv4_address: 172.18.0.100
+            elbuensabor_network
+       #         ipv4_address: 172.18.0.100 los microservicios no necesitan ip fija
                 
     usuarios:
         build:
@@ -68,8 +69,8 @@ services:
             - usuarios-db
             - discovery
         networks:
-            elbuensabor_network:
-                ipv4_address: 172.18.0.101
+            elbuensabor_network
+        #        ipv4_address: 172.18.0.101
 
 volumes:
     postgres_data:
