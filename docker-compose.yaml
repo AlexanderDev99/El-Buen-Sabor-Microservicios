@@ -38,7 +38,7 @@ services:
             - "8761:8761"
         networks:
             elbuensabor_network:
-                ipv4_address: 172.18.0.200
+                ipv4_address: 172.18.0.10
                 
     gateway:
         build:
@@ -48,31 +48,34 @@ services:
             - "8080:8080"
         networks:
             elbuensabor_network:
-               ipv4_address: 172.18.0.201 
+               ipv4_address: 172.18.0.12 
     
     reservas:
         build:
             context: ./reservas
             dockerfile: dockerfile
+        # Dependencias de otros servicios
         depends_on:
             - reservas-db
             - discovery
         networks:
-            elbuensabor_network
+            - elbuensabor_network
        #         ipv4_address: 172.18.0.100 los microservicios no necesitan ip fija
                 
     usuarios:
         build:
             context: ./usuario
             dockerfile: dockerfile
+        # Dependencias de otros servicios
         depends_on:
             - usuarios-db
             - discovery
         networks:
-            elbuensabor_network
-        #        ipv4_address: 172.18.0.101
+            - elbuensabor_network
+        #        ipv4_address: 172.18.0.114 los microservicios no necesitan ip fija
 
 volumes:
+#guardan el estado de las bases de datos en una ubicación segura gestionada por Docker en caso de apagones o reinicios de contenedores.
     postgres_data:
     mysql_data:
 
