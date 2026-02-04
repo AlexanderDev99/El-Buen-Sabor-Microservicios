@@ -36,9 +36,9 @@ services:
             dockerfile: dockerfile
         ports:
             - "8761:8761"
-        networks:
-            elbuensabor_network:
-                ipv4_address: 172.18.0.10
+       # networks:
+        #    elbuensabor_network:
+         #       ipv4_address: 172.18.0.10
                 
     gateway:
         build:
