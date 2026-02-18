@@ -2,14 +2,14 @@ package com.elbuensabor.reservas.reservas.logic.network.interfaces;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.elbuensabor.reservas.reservas.data.entities.apis.UserEntityAPI;
 
-@FeignClient(name = "USUARIO-SERVICE")
+@FeignClient(name = "USER-SERVICE")
 public interface UsersInterface {
 
-    @GetMapping("/usuario/buscar")
-    UserEntityAPI GetInfoUsuario(@RequestParam("id") Integer idCliente);
+    @GetMapping("api/users/get-user/{id}")
+    UserEntityAPI GetInfoUsuario(@PathVariable("id") Integer idCliente);
 
 }

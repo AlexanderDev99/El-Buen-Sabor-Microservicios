@@ -16,7 +16,7 @@ import com.elbuensabor.reservas.reservas.logic.usercases.MakeReservationUserCase
 import com.elbuensabor.reservas.reservas.logic.usercases.ModifyReservationUserCase;
 
 @RestController
-@RequestMapping("/api/reservation")
+@RequestMapping("/api/reservations")
 public class ReservationService {
 
     @Autowired
@@ -35,23 +35,23 @@ public class ReservationService {
     private ModifyReservationUserCase modifyReservationCase;
 
     // Crear reservas
-    @GetMapping("/make-reservation")
+    @GetMapping("/make-reservations")
     public ResultAPI makeReservation(
             @RequestParam("name") String userName,
-            @RequestParam("date") String fechaReservaString,
-            @RequestParam("people") int numeroComensales) {
+            @RequestParam("date") String dateReservationString,
+            @RequestParam("people") int numberOfGuests) {
 
-        var reserva = userCase.execute(userName, fechaReservaString, numeroComensales);
+        var reserva = userCase.execute(userName, dateReservationString, numberOfGuests);
 
         return reserva.fold(
-                val -> new ResultAPI(val.getReservaId().toString()),
+                val -> new ResultAPI(val.getReservationId().toString()),
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
     // Mostrar todas las reservas
     @GetMapping("/all-reservations")
     public ResultAPI getAllReservations() {
-        return getAllReservationsCase.getAllReservs().fold(
+        return getAllReservationsCase.getAllReservations().fold(
                 val -> new ResultAPI(val),
                 ex -> new ResultAPI(ex.getMessage()));
     }
@@ -59,49 +59,49 @@ public class ReservationService {
     // Mostrar todas las reservas con paginacion
     @GetMapping("/all-reservations/{page}")
     public ResultAPI getAllReservations(@PathVariable("page") int page) {
-        return getAllReservationsCase.getAllReservsPagginResult(page).fold(
+        return getAllReservationsCase.getAllReservationsPagginResult(page).fold(
                 val -> new ResultAPI(val),
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
     // Mostrar una reserva por ID
-    @GetMapping("/get-reservation/{reservaId}")
-    public ResultAPI getReservation(@PathVariable("reservaId") String reservaId) {
-        return getReservationInfo.execute(reservaId).fold(
+    @GetMapping("/get-reservation/{reservationId}")
+    public ResultAPI getReservation(@PathVariable("reservationId") String reservationId) {
+        return getReservationInfo.execute(reservationId).fold(
                 val -> new ResultAPI(val),
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
     // Cancelar una reserva por ID
-    @PutMapping("/cancel-reservation/{reservaId}")
-    public ResultAPI cancelReservation(@PathVariable("reservaId") String reservaId) {
-        return stateReservationCase.calcelReservation(reservaId).fold(
+    @PutMapping("/cancel-reservation/{reservationId}")
+    public ResultAPI cancelReservation(@PathVariable("reservationId") String reservationId) {
+        return stateReservationCase.calcelReservation(reservationId).fold(
                 val -> new ResultAPI(val),
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
     // Completar reserva por ID
-    @PutMapping("/complete-reservation/{reservaId}")
-    public ResultAPI completeReservation(@PathVariable("reservaId") String reservaId) {
-        return stateReservationCase.completeReservation(reservaId).fold(
+    @PutMapping("/complete-reservation/{reservationId}")
+    public ResultAPI completeReservation(@PathVariable("reservationId") String reservationId) {
+        return stateReservationCase.completeReservation(reservationId).fold(
                 val -> new ResultAPI(val),
                 ex -> new ResultAPI(ex.getMessage()));
     }
 
     // Modificar una reserva por ID
-    @PutMapping("/modify-reservation/{reservaId}")
+    @PutMapping("/modify-reservation/{reservationId}")
     public ResultAPI modifyReservation(
-            @PathVariable("reservaId") String reservaId,
+            @PathVariable("reservationId") String reservationId,
             @RequestParam("name") String newUserName,
             @RequestParam("date") String newDateString,
             @RequestParam("state") String newState,
             @RequestParam("table") int newMesaReservada,
             @RequestParam("people") int newPeopleCount) {
 
-        return modifyReservationCase.execute(reservaId, newUserName, java.sql.Date.valueOf(newDateString), newState,
+        return modifyReservationCase.execute(reservationId, newUserName, java.sql.Date.valueOf(newDateString), newState,
                 newMesaReservada, newPeopleCount).fold(
                         val -> new ResultAPI(val),
-                        ex -> new ResultAPI(ex.getMessage()));
+                        ex -> new ResultAPI(ex.getMessage()));  
     }
 
 }

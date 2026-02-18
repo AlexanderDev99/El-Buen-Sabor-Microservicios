@@ -1,35 +1,35 @@
 package com.elbuensabor.usuario.controllers.data.converters;
 
-import com.elbuensabor.usuario.controllers.data.entities.UsuarioEntityUI;
-import com.elbuensabor.usuario.data.entities.db.UsuarioEntityDb;
+import com.elbuensabor.usuario.controllers.data.entities.UserEntityUI;
+import com.elbuensabor.usuario.data.entities.db.UserEntityDb;
 
 public class EntityConverters {
 
-    public static UsuarioEntityUI usuarioEntityDbToUI(UsuarioEntityDb usuarioEntityDb) {
-        if (usuarioEntityDb == null) {
+    public static UserEntityUI userEntityDbToUI(UserEntityDb userEntityDb) {
+        if (userEntityDb == null) {
             return null;
         }
 
-        UsuarioEntityUI usuarioEntityUI = new UsuarioEntityUI();
-        usuarioEntityUI.setId(usuarioEntityDb.getId());
-        usuarioEntityUI.setName(usuarioEntityDb.getNombreUsuario());
-        usuarioEntityUI.setLastName(usuarioEntityDb.getApellidoUsuario());
-        usuarioEntityUI.setEmail(usuarioEntityDb.getEmailUsuario());
+        UserEntityUI userEntityUI = new UserEntityUI();
+        userEntityUI.setId(userEntityDb.getId());
+        userEntityUI.setName(userEntityDb.getNameUser());
+        userEntityUI.setLastName(userEntityDb.getLastNameUser());
+        userEntityUI.setEmail(userEntityDb.getEmailUser());
 
-        return usuarioEntityUI;
+        return userEntityUI;
     }
 
-    public static UsuarioEntityDb usuarioEntityUIToDb(UsuarioEntityUI usuarioEntityUI) {
-        if (usuarioEntityUI == null) {
+    public static UserEntityDb userEntityUIToDb(UserEntityUI userEntityUI) {
+        if (userEntityUI == null) {
             return null;
         }
 
-        UsuarioEntityDb usuarioEntityDb = new UsuarioEntityDb();
-        usuarioEntityDb.setId(usuarioEntityUI.getId());
-        usuarioEntityDb.setNombreUsuario(usuarioEntityUI.getName());
-        usuarioEntityDb.setApellidoUsuario(usuarioEntityUI.getLastName());
-        usuarioEntityDb.setEmailUsuario(usuarioEntityUI.getEmail());
+        UserEntityDb userEntityDb = new UserEntityDb();
+        userEntityDb.setId(userEntityUI.getId()); 
+        userEntityDb.setNameUser(userEntityUI.getName());
+        userEntityDb.setLastNameUser(userEntityUI.getLastName());
+        userEntityDb.setEmailUser(userEntityUI.getEmail());
 
-        return usuarioEntityDb;
+        return userEntityDb;
     }
 }

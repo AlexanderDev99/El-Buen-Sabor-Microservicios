@@ -16,22 +16,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "reservas")
-public class ReservaEntityDB {
+@Table(name = "reservations")
+public class ReservationEntityDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
     //Datos de la reserva
-    private String reservaId;
+    private String reservationId;
     private String userName;
-    private Date fechaReserva;
-    private String estadoReserva;
-    private int mesaReservada;
-    private int numeroComensales;
+    private Date dateReservation;
+    private String estateReservation;
+    private int reservedTable;
+    private int numberOfGuests;
 
-   
-    
 
 }

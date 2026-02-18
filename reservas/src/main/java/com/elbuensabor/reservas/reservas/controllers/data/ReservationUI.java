@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservaUI {
+public class ReservationUI {
 
     // Datos de la reserva
     private String reservationCode;

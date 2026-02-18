@@ -1,17 +1,17 @@
 package com.elbuensabor.reservas.reservas.controllers.converters;
 
-import com.elbuensabor.reservas.reservas.controllers.data.ReservaUI;
-import com.elbuensabor.reservas.reservas.data.entities.db.ReservaEntityDB;
+import com.elbuensabor.reservas.reservas.controllers.data.ReservationUI;
+import com.elbuensabor.reservas.reservas.data.entities.db.ReservationEntityDB;
 
 public class EntityConvertes {
 
-    public static ReservaUI ReservationEntityToUI(ReservaEntityDB reservaEntity) {
-        return new ReservaUI(
-                reservaEntity.getReservaId(),
-                reservaEntity.getUserName(),
-                reservaEntity.getFechaReserva(),
-                reservaEntity.getEstadoReserva(),
-                reservaEntity.getMesaReservada(),
-                reservaEntity.getNumeroComensales());
+    public static ReservationUI ReservationEntityToUI(ReservationEntityDB reservationEntity) {
+        return new ReservationUI(
+                reservationEntity.getReservationId(),
+                reservationEntity.getUserName(),
+                reservationEntity.getDateReservation(),
+                reservationEntity.getEstateReservation(),
+                reservationEntity.getReservedTable(),
+                reservationEntity.getNumberOfGuests());
     }
 }
