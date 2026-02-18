@@ -15,11 +15,11 @@ import com.elbuensabor.usuario.controllers.data.entities.UserDTO;
 import com.elbuensabor.usuario.logic.usercases.DeleteUserUserCase;
 import com.elbuensabor.usuario.logic.usercases.EditUserUserCase;
 import com.elbuensabor.usuario.logic.usercases.GetAllUserUserCase;
-import com.elbuensabor.usuario.logic.usercases.GetUserByIdUserCase;
+import com.elbuensabor.usuario.logic.usercases.GetUserByNameUserCase;
 import com.elbuensabor.usuario.logic.usercases.RegisterUserUserCase;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UserService {
 
     @Autowired
@@ -29,7 +29,7 @@ public class UserService {
     private GetAllUserUserCase listUserUserCase;
 
     @Autowired
-    private GetUserByIdUserCase getUserByIdUserCase;
+    private GetUserByNameUserCase getUserByNameUserCase;
 
     @Autowired
     private EditUserUserCase editUserUserCase;
@@ -51,7 +51,7 @@ public class UserService {
     }
 
     @PostMapping("/modify-user/{id}")
-    public ResponseEntity<?> edit(@PathVariable("id") Integer id,
+    public ResponseEntity<?> edit(@PathVariable("id") String id,
             @RequestParam String name,
             @RequestParam String lastName,
             @RequestParam String email) {
@@ -67,16 +67,16 @@ public class UserService {
                 ex -> ResponseEntity.internalServerError().body(ex.getMessage()));
     }
 
-    @GetMapping("/get-user/{id}")
-    public ResponseEntity<?> findByIdParam(@PathVariable("id") Integer id) {
-        return getUserByIdUserCase.execute(id).fold(
+    @GetMapping("/get-user/{name:.+}")
+    public ResponseEntity<?> findByNameParam(@PathVariable("name") String name) {
+        return getUserByNameUserCase.execute(name).fold(
                 val -> ResponseEntity.ok(val),
                 ex -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()));
     }
 
     @PostMapping("/delete-user/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
-        return deleteUserUserCase.deleteUser(id).fold( 
+    public ResponseEntity<?> delete(@PathVariable("id") String id) {
+        return deleteUserUserCase.deleteUser(id).fold(        
                 val -> ResponseEntity.ok("User deleted successfully"),
                 ex -> ResponseEntity.badRequest().body(ex.getMessage()));
     }

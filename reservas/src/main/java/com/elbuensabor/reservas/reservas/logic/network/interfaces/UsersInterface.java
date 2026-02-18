@@ -9,7 +9,7 @@ import com.elbuensabor.reservas.reservas.data.entities.apis.UserEntityAPI;
 @FeignClient(name = "USER-SERVICE")
 public interface UsersInterface {
 
-    @GetMapping("api/users/get-user/{id}")
-    UserEntityAPI GetInfoUsuario(@PathVariable("id") Integer idCliente);
+    @GetMapping("/api/users/get-user/{name}")
+    UserEntityAPI GetInfoUsuario(@PathVariable("name") String name);
 
 }

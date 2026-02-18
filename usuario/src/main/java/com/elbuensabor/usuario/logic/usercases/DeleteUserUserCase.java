@@ -12,7 +12,7 @@ public class DeleteUserUserCase {
     @Autowired
     private UserRepository userRepository;
 
-     public Result<Boolean> deleteUser(Integer id) {
+     public Result<Boolean> deleteUser(String id) {
         try {
             if (!userRepository.existsById(id)) {
                 return Result.failure(new Exception("User with id " + id + " does not exist."));

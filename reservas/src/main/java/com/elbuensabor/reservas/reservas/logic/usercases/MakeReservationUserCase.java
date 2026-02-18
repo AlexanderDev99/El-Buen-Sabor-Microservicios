@@ -21,14 +21,14 @@ public class MakeReservationUserCase {
     private UsersInterface usersInterface;
 
     public Result<ReservationEntityDB> execute(
-            String userId,
+            String userName,
             String dateReservationString,
             int numberOfGuests) {
 
         Result<ReservationEntityDB> result = null;
 
         try {
-            var userResult = usersInterface.GetInfoUsuario(Integer.parseInt(userId));
+            var userResult = usersInterface.GetInfoUsuario(userName);
 
             Date dateReservation = Date.valueOf(dateReservationString);
             var reservaBuilder = ReservationEntityDB.builder()

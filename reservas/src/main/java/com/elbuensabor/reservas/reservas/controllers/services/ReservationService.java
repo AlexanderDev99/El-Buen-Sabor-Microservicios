@@ -20,7 +20,7 @@ import com.elbuensabor.reservas.reservas.logic.usercases.ModifyReservationUserCa
 public class ReservationService {
 
     @Autowired
-    private MakeReservationUserCase userCase;
+    private MakeReservationUserCase makeReservationUserCase;
 
     @Autowired
     private GetAllReservationsUserCase getAllReservationsCase;
@@ -41,7 +41,7 @@ public class ReservationService {
             @RequestParam("date") String dateReservationString,
             @RequestParam("people") int numberOfGuests) {
 
-        var reserva = userCase.execute(userName, dateReservationString, numberOfGuests);
+        var reserva = makeReservationUserCase.execute(userName, dateReservationString, numberOfGuests);
 
         return reserva.fold(
                 val -> new ResultAPI(val.getReservationId().toString()),

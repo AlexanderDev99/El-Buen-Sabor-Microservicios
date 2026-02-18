@@ -13,7 +13,7 @@ public class EditUserUserCase {
     @Autowired
     private UserRepository userRepository;
 
-    public Result<UserEntityDb> updateUser(Integer id,
+    public Result<UserEntityDb> updateUser(String id,
             String name, String lastName, String email) {
         try {
             var userOptional = userRepository.findById(id);
